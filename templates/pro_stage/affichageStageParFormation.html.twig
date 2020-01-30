@@ -1,0 +1,56 @@
+{% extends 'montemplate.html.twig' %}
+
+{% block contenu %}
+
+	<h3><center>Aperçu de la liste des stages pour la formation {{ formation.nomCourt }}</center></h3>
+
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-light">
+				<thead class="thead-dark">
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							Titre
+						</th>
+						<th>
+							Email
+						</th>
+						<th>
+							Entreprise
+						</th>
+						<th>
+							/
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					{% for stage in formation.stages %}
+					<tr>
+						<td>
+							{{ stage.id }}
+						</td>
+						<td>
+							{{ stage.titre }}
+						</td>
+						<td>
+							{{ stage.email }}
+						</td>
+						<td>
+							{{ stage.entreprise.nom }}
+						</td>
+						<td>
+							<a class="link" href="/stages/{{ stage.id }}">Détails</a>
+						</td>
+					</tr>
+					{% endfor %}
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}

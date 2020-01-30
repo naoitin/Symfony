@@ -1,0 +1,24 @@
+index:
+    path: /
+    controller: App\Controller\ProStageController::index
+
+affichageStageParEntreprise:
+    path: /entreprises/{id}
+    controller: App\Controller\ProStageController::affichageStageParEntreprise
+
+affichageStageParFormation:
+    path: /formations/{id}
+    controller: App\Controller\ProStageController::affichageStageParFormation
+
+entreprises:
+    path: /entreprises
+    controller: App\Controller\ProStageController::entreprises
+
+formations:
+    path: /formations
+    controller: App\Controller\ProStageController::formations
+
+stages:
+    path: /stages/{id}
+    controller: App\Controller\ProStageController::stages
+

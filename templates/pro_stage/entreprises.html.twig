@@ -1,0 +1,68 @@
+{% extends 'montemplate.html.twig' %}
+
+{% block contenu %}
+
+<h3><center>Liste des entreprises proposant un stage</center></h3>
+
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-light">
+				<thead class="thead-dark">
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							Nom
+						</th>
+						<th>
+							Activité
+						</th>
+						<th>
+							Adresse
+						</th>
+						<th>
+							Email
+						</th>
+						<th>
+							Site Web
+						</th>
+						<th>
+							/
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					{% for entreprise in entreprises %}
+					<tr>
+						<td>
+							{{ entreprise.id }}
+						</td>
+						<td>
+							{{ entreprise.nom }}
+						</td>
+						<td>
+							{{ entreprise.activite }}
+						</td>
+						<td>
+							{{ entreprise.adresse }}
+						</td>
+						<td>
+							{{ entreprise.email }}
+						</td>
+						<td>
+							{{ entreprise.siteweb }}
+						</td>
+						<td>
+							<a class="link" href="/entreprises/{{entreprise.id}}">Découvrir stages</a>
+						</td>
+					</tr>
+					{% endfor %}
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
