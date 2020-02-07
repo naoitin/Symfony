@@ -47,4 +47,12 @@ class StageRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findStagesEtEntreprises ()
+    {
+        $gestionnaire = $this->getEntityManager();
+        $requete = $gestionnaire->createQuery('SELECT stage, entreprise
+                                                FROM App\Entity\Stage stage
+                                                JOIN stage.entreprise entreprise');
+        return $requete->execute();
+    }
 }

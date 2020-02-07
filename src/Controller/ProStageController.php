@@ -14,7 +14,7 @@ class ProStageController extends AbstractController
     public function index()
     {
         $repositoryStage=$this->getDoctrine()->getRepository(Stage::class);
-        $stages = $repositoryStage->findAll();
+        $stages = $repositoryStage->findStagesEtEntreprises();
 
         return $this->render('pro_stage/index.html.twig', ['stages' => $stages]);
     }
@@ -56,17 +56,7 @@ class ProStageController extends AbstractController
         return $this->render('pro_stage/affichageStageParFormation.html.twig', ['formation' => $formation]);
     }
 
-    /**
-     * @return
-     */
-    public function findStagesEtEntreprises()
-    {
-        $gestionnaireEntite = $this->getEntityManager();
-        $requete = $gestionnaireEntite->createQuerry('SELECT stage,entreprise
-                                                      FROM App\Entity\stage stage
-                                                      JOIN stage.entreprise entreprise');
-        return $requete->execute();
-    }
+    
 }
 
 
