@@ -56,6 +56,26 @@ class ProStageController extends AbstractController
         return $this->render('pro_stage/affichageStageParFormation.html.twig', ['formation' => $formation]);
     }
 
+    public function formulaireEntreprise()
+    {
+        //Création d'une ressource initialement vierge
+        $ressource = new Entreprise();
+
+        //création d'un objet formulaire pour saisir une ressource
+        $formulaireRessource = $this -> createFormBuilder($ressource)
+                                     -> add ('nom')
+                                     -> add ('activite')
+                                     -> add ('adresse')
+                                     -> add ('email')
+                                     -> getForm();
+
+        //Génerer la vue représentant le formulaire
+        $vueFormulaireRessource = $formulaireRessource -> createView();
+
+        //Affocher la page d'ajout d'une ressource
+        return $this->render('pro_stage/formulaireEntreprise.html.twig', ['vueFormulaireRessource' => $vueFormulaireRessource]);
+    }
+
     
 }
 

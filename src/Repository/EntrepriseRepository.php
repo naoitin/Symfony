@@ -47,4 +47,17 @@ class EntrepriseRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function ajouterRessourcePeda()
+    {
+        //Création d'une ressource initialement vierge
+        $ressource = new ressource();
+
+        //création d'un objet formulaire pour saisir une ressource
+        $formulaireRessource = $this -> createFormBuilder($ressource)
+                                     -> add ('titre')
+                                     -> add ('decriptif')
+                                     -> add ('urlRessource')
+                                     -> add ('urlVignette')
+                                     -> getForm();
+    }
 }
