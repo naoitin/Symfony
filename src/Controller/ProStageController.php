@@ -56,8 +56,17 @@ class ProStageController extends AbstractController
         return $this->render('pro_stage/affichageStageParFormation.html.twig', ['formation' => $formation]);
     }
 
-
-
+    /**
+     * @return
+     */
+    public function findStagesEtEntreprises()
+    {
+        $gestionnaireEntite = $this->getEntityManager();
+        $requete = $gestionnaireEntite->createQuerry('SELECT stage,entreprise
+                                                      FROM App\Entity\stage stage
+                                                      JOIN stage.entreprise entreprise');
+        return $requete->execute();
+    }
 }
 
 
