@@ -24,4 +24,8 @@ stages:
 
 formulaireEntreprise:
     path: /formulaire_entreprise
-    controller: App\Controller\ProstageController::formulaireEntreprise
+    controller: App\Controller\ProStageController::formulaireEntreprise
+
+formulaireModifEntreprise:
+    path: /formulaire_entreprise/{id}
+    controller: App\Controller\ProStageController::formulaireModifEntreprise

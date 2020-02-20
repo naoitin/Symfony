@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Controller;
-
+use Doctrine\Common\Persistence\ObjectManager ;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request ;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
 use App\Entity\Stage;
-use Doctrine\Common\Persistence\ObjectManager ;
+
 
 class ProStageController extends AbstractController
 {
@@ -60,6 +60,7 @@ class ProStageController extends AbstractController
 
     public function formulaireEntreprise(Request $requetteHttp)
     {
+        $manager=$this->getDoctrine()->getManager();
         //Création d'une ressource initialement vierge
         $ressource = new Entreprise();
 
@@ -75,18 +76,37 @@ class ProStageController extends AbstractController
         $formulaireRessource->handleRequest($requetteHttp);
 
         if ($formulaireRessource->isSubmitted()){
-            $ressource->setDateAjout(new \DateTime());
 
             $manager->persist($ressource);
             $manager->flush();
-            return $this->redirectToRoute('pro_stage/');
+            return $this->redirectToRoute('entreprises');
         }
 
         //Génerer la vue représentant le formulaire
         $vueFormulaireRessource = $formulaireRessource -> createView();
 
-        //Affocher la page d'ajout d'une ressource
+        //Afficher la page d'ajout d'une ressource
         return $this->render('pro_stage/formulaireEntreprise.html.twig', ['vueFormulaireRessource' => $vueFormulaireRessource]);
+    }
+
+    public function formulaireModifEntreprise(Request $requetteHttp, ObjectManager $manager, Entreprise $entreprise)
+    {
+        $formulaireEntreprise = $this-> createFormBuilder($entreprise)
+        -> add ('nom')
+        -> add ('activite')
+        -> add ('adresse')
+        -> add ('email')
+        -> add ('siteWeb')
+        -> getForm();
+        $formulaireEntreprise->handleRequest($requetteHttp);
+        
+        if ($formulaireEntreprise->isSubmitted()){
+            $manager->persist($entreprise);
+            $manager->flush();
+            return $this->redirectToRoute('entreprises');
+        }
+
+        return $this->render('pro_stage/formulaireEntreprise.html.twig', ['vueFormulaireRessource' => $formulaireEntreprise->createView()]);
     }
 
     
