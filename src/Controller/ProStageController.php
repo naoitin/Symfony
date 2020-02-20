@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request ;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
 use App\Entity\Stage;
+use Doctrine\Common\Persistence\ObjectManager ;
 
 class ProStageController extends AbstractController
 {
@@ -56,7 +58,7 @@ class ProStageController extends AbstractController
         return $this->render('pro_stage/affichageStageParFormation.html.twig', ['formation' => $formation]);
     }
 
-    public function formulaireEntreprise()
+    public function formulaireEntreprise(Request $requetteHttp)
     {
         //Création d'une ressource initialement vierge
         $ressource = new Entreprise();
@@ -67,7 +69,18 @@ class ProStageController extends AbstractController
                                      -> add ('activite')
                                      -> add ('adresse')
                                      -> add ('email')
+                                     -> add ('siteWeb')
                                      -> getForm();
+        
+        $formulaireRessource->handleRequest($requetteHttp);
+
+        if ($formulaireRessource->isSubmitted()){
+            $ressource->setDateAjout(new \DateTime());
+
+            $manager->persist($ressource);
+            $manager->flush();
+            return $this->redirectToRoute('pro_stage/');
+        }
 
         //Génerer la vue représentant le formulaire
         $vueFormulaireRessource = $formulaireRessource -> createView();

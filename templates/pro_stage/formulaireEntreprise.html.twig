@@ -2,8 +2,17 @@
 
 {% block contenu %}
 
-<h3><center>Renseignement des informations d'une entreprise</center></h3>
+<h3><center>Liste des entreprises proposant un stage</center></h3>
+
+{{ form_start (vueFormulaireRessource)}}
+    {{ form_row (vueFormulaireRessource.nom)}}
+    {{ form_row (vueFormulaireRessource.activite)}}
+    {{ form_row (vueFormulaireRessource.adresse)}}
+    {{ form_row (vueFormulaireRessource.email)}}
+    {{ form_row (vueFormulaireRessource.siteWeb)}}
+
+    <button type="submit" class="btn btn-dark">valider</button>
+{{ form_end (vueFormulaireRessource)}}
     
-    {{ form(vueFormulaireRessource)}}
 
 {% endblock %}
